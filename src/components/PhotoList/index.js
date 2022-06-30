@@ -100,6 +100,7 @@ const PhotoList = ({ category }) => {
     },
   ]);
 
+  //going through each photo in the photos array to find every photo that matches the 'category' selected; if photo matches the condition, it is returned in an array and assigned to 'currentPhotos'
   const currentPhotos = photos.filter((photo) => photo.category === category);
 
   return (
