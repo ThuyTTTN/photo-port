@@ -6,11 +6,11 @@ import Nav from '..';
 
 //Add categories array so we can handle props for Nav.
 //Declare props
-const categories = [
-    { name: 'portraits', description: 'Portraits of people in my life'}
-]
-const mockCurrentCategory = jest.fn();
-const mockSetCurrentCategory = jest.fn();
+// const categories = [
+//     { name: 'portraits', description: 'Portraits of people in my life'}
+// ]
+// const mockCurrentCategory = jest.fn();
+// const mockSetCurrentCategory = jest.fn();
 
 // it('renders', () => {
 //     render(<Nav
