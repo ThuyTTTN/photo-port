@@ -1,25 +1,52 @@
 import React, { useState } from "react";
+import { validateEmail } from "../../utils/helpers";
 
 function ContactForm() {
-    // the Hook that will manage the form data
-    //'' is used to clear the input fields on the component loading
-    const [formState, setFormState] = useState({ name: '', email:'', message: ''});
+  // the Hook that will manage the form data
+  //'' is used to clear the input fields on the component loading
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
 
-    //destructure the formState
-    const { name, email, message } = formState;
+  //destructure the formState
+  const { name, email, message } = formState;
 
-    //this function will sync the internal state of the component formState w/ the user input from the DOM; onChange event listener will ensure that the handleChange function fires 
-    function handleChange(e) {
-        setFormState({...formState, [e.target.name]: e.target.value })
+  //errorMessage Hook
+  const [errorMessage, setErrorMessage] = useState("");
+
+  //this function will sync the internal state of the component formState w/ the user input from the DOM; onChange event listener will ensure that the handleChange function fires
+  function handleChange(e) {
+    if (e.target.name === "email") {
+      const isValid = validateEmail(e.target.value);
+      console.log(isValid);
+      // isValid conditional statement
+      if (!isValid) {
+        setErrorMessage("Your email is invalid.");
+      } else {
+        if (!e.target.value.length) {
+          setErrorMessage(`${e.target.name} is required.`);
+        } else {
+          setErrorMessage("");
+          console.log("errorMessage", errorMessage);
+        }
       }
-      //this will log the changes in the form elements of the UI.  It shows the sync w/ the state of the component
-    //   console.log(formState);
+    }
 
-    //
-    function handleSubmit(e) {
-        e.preventDefault();
-        console.log(formState);
-      }
+    //allows the state to update w/ the user input if there is no error message
+    if (!errorMessage) {
+      setFormState({ ...formState, [e.target.name]: e.target.value });
+    }
+  }
+  //this will log the changes in the form elements of the UI.  It shows the sync w/ the state of the component
+  //   console.log(formState);
+
+  //
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(formState);
+  }
 
   // JSX
   return (
@@ -28,16 +55,36 @@ function ContactForm() {
       <form id="contact-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name:</label>
-          <input type="text" defaultValue={name} onChange={handleChange} name="name" />
+          <input
+            type="text"
+            defaultValue={name}
+            onBlur={handleChange}
+            name="name"
+          />
         </div>
         <div>
           <label htmlFor="email">Email address:</label>
-          <input type="email" defaultValue={email} name="email" onChange={handleChange} />
+          <input
+            type="email"
+            defaultValue={email}
+            name="email"
+            onBlur={handleChange}
+          />
         </div>
         <div>
           <label htmlFor="message">Message:</label>
-          <textarea name="message" defaultValue={message} onChange={handleChange} rows="5"   />
+          <textarea
+            name="message"
+            defaultValue={message}
+            onBlur={handleChange}
+            rows="5"
+          />
         </div>
+        {errorMessage && (
+          <div>
+            <p className="error-text">{errorMessage}</p>
+          </div>
+        )}
         <button type="submit">Submit</button>
       </form>
     </section>
