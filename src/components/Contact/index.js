@@ -10,35 +10,15 @@ function ContactForm() {
     message: "",
   });
 
-  //destructure the formState
-  const { name, email, message } = formState;
-
   //errorMessage Hook
   const [errorMessage, setErrorMessage] = useState("");
 
-  //this function will sync the internal state of the component formState w/ the user input from the DOM; onChange event listener will ensure that the handleChange function fires
-  function handleChange(e) {
-    if (e.target.name === 'email') {
-        const isValid = validateEmail(e.target.value);
-        if (!isValid) {
-          setErrorMessage('Your email is invalid.');
-        } else {
-          setErrorMessage('');
-        }
-      } else {
-        if (!e.target.value.length) {
-          setErrorMessage(`${e.target.name} is required.`);
-        } else {
-          setErrorMessage('');
-        }
-      }
-    };
+  //destructure the formState
+  const { name, email, message } = formState;
 
-    
+
   //this will log the changes in the form elements of the UI.  It shows the sync w/ the state of the component
   //   console.log(formState);
-
-  //
   function handleSubmit(e) {
     e.preventDefault();
     console.log(formState);
@@ -49,7 +29,30 @@ function ContactForm() {
       }
     };
 
-  // JSX
+  
+  //this function will sync the internal state of the component formState w/ the user input from the DOM; onChange event listener will ensure that the handleChange function fires
+  function handleChange(e) {
+    if (e.target.name === 'email') {
+      const isValid = validateEmail(e.target.value);
+      if (!isValid) {
+        setErrorMessage('Your email is invalid.');
+      } else {
+        setErrorMessage('');
+      }
+    } else {
+      if (!e.target.value.length) {
+        setErrorMessage(`${e.target.name} is required.`);
+      } else {
+        setErrorMessage('');
+      }
+    }
+    if (!errorMessage) {
+      setFormState({ ...formState, [e.target.name]: e.target.value });
+      console.log('Handle Form', formState);
+    }
+  };
+
+  
   return (
     <section>
       <h1>Contact Me</h1>
