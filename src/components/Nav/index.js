@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { capitalizeFirstLetter } from "../../utils/helpers";
 
 function Nav(props) {
@@ -10,10 +10,10 @@ function Nav(props) {
     setContactSelected,
   } = props;
 
-  const handleClick = (item) => {
-    console.log(item);
-    return item;
-  };
+  // const handleClick = (item) => {
+  //   console.log(item);
+  //   return item;
+  // };
 
   return (
     <header className="flex-row px-1">

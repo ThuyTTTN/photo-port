@@ -18,27 +18,23 @@ function ContactForm() {
 
   //this function will sync the internal state of the component formState w/ the user input from the DOM; onChange event listener will ensure that the handleChange function fires
   function handleChange(e) {
-    if (e.target.name === "email") {
-      const isValid = validateEmail(e.target.value);
-      console.log(isValid);
-      // isValid conditional statement
-      if (!isValid) {
-        setErrorMessage("Your email is invalid.");
+    if (e.target.name === 'email') {
+        const isValid = validateEmail(e.target.value);
+        if (!isValid) {
+          setErrorMessage('Your email is invalid.');
+        } else {
+          setErrorMessage('');
+        }
       } else {
         if (!e.target.value.length) {
           setErrorMessage(`${e.target.name} is required.`);
         } else {
-          setErrorMessage("");
-          console.log("errorMessage", errorMessage);
+          setErrorMessage('');
         }
       }
-    }
+    };
 
-    //allows the state to update w/ the user input if there is no error message
-    if (!errorMessage) {
-      setFormState({ ...formState, [e.target.name]: e.target.value });
-    }
-  }
+    
   //this will log the changes in the form elements of the UI.  It shows the sync w/ the state of the component
   //   console.log(formState);
 
@@ -46,7 +42,12 @@ function ContactForm() {
   function handleSubmit(e) {
     e.preventDefault();
     console.log(formState);
-  }
+    //allows the state to update w/ the user input if there is no error message
+    if (!errorMessage) {
+        setFormState({ [e.target.name]: e.target.value });
+        console.log('Form', formState);
+      }
+    };
 
   // JSX
   return (
@@ -85,7 +86,7 @@ function ContactForm() {
             <p className="error-text">{errorMessage}</p>
           </div>
         )}
-        <button type="submit">Submit</button>
+        <button data-testid="button" type="submit">Submit</button>
       </form>
     </section>
   );
