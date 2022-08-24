@@ -10,18 +10,19 @@ function ContactForm() {
     message: "",
   });
 
-  //errorMessage Hook
+  //errorMessage Hook; defining here so that we an use it for different errors that occur
   const [errorMessage, setErrorMessage] = useState("");
 
-  //destructure the formState
+  //destructure the formState object
   const { name, email, message } = formState;
 
 
   //this will log the changes in the form elements of the UI.  It shows the sync w/ the state of the component
-  //   console.log(formState);
+  //   backend/full stack developer will complete for the full submission
   function handleSubmit(e) {
     e.preventDefault();
     console.log(formState);
+
     //allows the state to update w/ the user input if there is no error message
     if (!errorMessage) {
         setFormState({ [e.target.name]: e.target.value });
