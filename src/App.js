@@ -24,6 +24,7 @@ function App() {
 
   const [currentCategory, setCurrentCategory] = useState(categories[0]);
 
+  //useState set to false b/c its to prevent the contact form from showing when a user initally navigates to the homepage; Gallery will show instead;
   const [contactSelected, setContactSelected] = useState(false);
 
   return (
@@ -36,9 +37,14 @@ function App() {
         setContactSelected={setContactSelected}
       ></Nav>
       <main>
-        <ContactForm></ContactForm>
-        <Gallery currentCategory={currentCategory}></Gallery>
-        <About></About>
+        {!contactSelected ? (
+          <>
+            <Gallery currentCategory={currentCategory}></Gallery>
+            <About></About>
+          </>
+        ) : (
+          <ContactForm></ContactForm>
+        )}
       </main>
     </div>
   );
